@@ -1,0 +1,78 @@
+.mainBody {
+  height: 100vh;
+  background-color: rgb(213, 168, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+.container {
+  width: 40%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 10px solid rgb(113, 184, 134);
+  border-radius: 20px;
+  background-color: rgb(247, 181, 181);
+  margin: 30px;
+}
+
+.controlcontainer {
+  width: 40%;
+  height: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 10px solid rgb(113, 184, 134);
+  border-radius: 20px;
+  background-color: rgb(247, 181, 181);
+}
+
+
+.display {
+  display: flex;
+  margin: 10px;
+  width: 90%;
+  height: 40%;
+  background-color: aqua;
+  border-radius: 20px;
+  border: rgb(47, 145, 145) solid 10px;
+  text-align: center;
+  justify-content: center;
+  font-size: 110px;
+}
+
+.buttons {
+  display: flex;
+  margin: 10px;
+  width: 90%;
+  height: 40%;
+  background-color: aqua;
+  border-radius: 20px;
+  border: rgb(47, 145, 145) solid 10px;
+  justify-content: center;
+  align-items: center;
+
+}
+
+.button{
+  color: #fff;
+  width: 80px;
+  margin: 10px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: #d6a843;
+  padding: 20px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  border: none;
+  transition: all 0.4s ease 0s;
+}
+.button:hover{
+  background: #434343;
+  letter-spacing: 3px;
+  transition: all 0.4s ease 0s;
+}
