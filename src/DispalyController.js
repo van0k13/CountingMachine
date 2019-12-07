@@ -11,7 +11,7 @@ class DisplayController extends React.Component {
         let name = this.props.state.controllers[2].name
         return (
             <div className='displayController'>
-                <div className='controlPanel'>
+               {!this.props.state.wrongValue && <div className='controlPanel'>
                     <div className='textStyle'>Max Value:
                             <input className='inputStyle'
                             value={this.props.state.maxValue}
@@ -24,7 +24,21 @@ class DisplayController extends React.Component {
                             onChange={onStartValueChange}
                             type='number'></input>
                     </div>
-                </div>
+                </div>}
+                {this.props.state.wrongValue && <div className='controlPanel'>
+                    <div className='textStyle'>Max Value:
+                            <input disabled={true} className='inputStyleWrong'
+                            value={this.props.state.maxValue}
+                            onChange={onMaxValueChange}
+                            type='number'></input>
+                    </div>
+                    <div className='textStyle'>Start Value:
+                            <input className='inputStyleWrong'
+                            value={this.props.state.startValue}
+                            onChange={onStartValueChange}
+                            type='number'></input>
+                    </div>
+                </div>}
                 <div className='setButton'>
                     <button className='buttonStylization'
                         disabled={disabled}
