@@ -4,6 +4,13 @@ import Display from './Dispaly';
 
 
 class App extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    componentDidMount() {
+        this.restoreState();
+    }
+
     addNumber = () => {
         let maxValue = this.state.maxValue
         let plusNum = Number(this.state.displayingNumber)
@@ -27,13 +34,13 @@ class App extends React.Component {
                         }), displayingNumberMax: true
                     })
                 }
-            })
+            }, () => { this.saveState(); })
         }
     }
     resetNumber = () => {
         this.setState({
             displayingNumber: 0
-        })
+        }, () => { this.saveState(); })
 
         this.setState({
             controllers: this.state.controllers.map(c => {
@@ -53,19 +60,15 @@ class App extends React.Component {
                 }),
                 displayingNumber: this.state.startValue,
                 displayingNumberMax: false
-            })
+            }, () => { this.saveState(); })
         }
-    }
-
-    wrongValueFn = () => {
-
     }
 
     onMaxValueChange = (e) => {
         if (e.currentTarget.value > 0 && e.currentTarget.value >= this.state.startValue) {
             return this.setState({
                 maxValue: +e.currentTarget.value
-            })
+            }, () => { this.saveState(); })
 
         }
     }
@@ -80,18 +83,18 @@ class App extends React.Component {
                         return { ...c, isDisabled: false };
                     } else return c
                 })
-            })
+            }, () => { this.saveState(); })
         } else {
             return this.setState(
                 {
                     wrongValue: true,
                     startValue: currentValue,
                     controllers: this.state.controllers.map(c => {
-                        if (c.name === 'SET','INC') {
+                        if (c.name === 'SET', 'INC') {
                             return { ...c, isDisabled: true };
                         } else return c
                     })
-                })
+                }, () => { this.saveState(); })
         }
 
     }
@@ -110,6 +113,31 @@ class App extends React.Component {
             { name: 'SET', buttonFn: this.setNumber, isDisabled: false }
         ],
     };
+
+    saveState = () => {
+        let stateAsString = JSON.stringify(this.state);
+        localStorage.setItem('my-state', stateAsString);
+    }
+
+    restoreState = () => {
+        let state = {
+            displayingNumber: 0,
+            displayingNumberMax: false,
+            startValue: 0,
+            maxValue: Number(5),
+            wrongValue: false,
+            controllers: [
+                { name: 'INC', buttonFn: this.addNumber, isDisabled: true },
+                { name: 'RESET', buttonFn: this.resetNumber, isDisabled: true },
+                { name: 'SET', buttonFn: this.setNumber, isDisabled: false }
+            ]
+        };
+        let stateAsString = localStorage.getItem('my-state');
+        if (stateAsString != null) {
+            state = JSON.parse(stateAsString);
+        }
+        this.setState(state);
+    }
 
 
     render = () => {
