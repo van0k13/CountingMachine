@@ -9,10 +9,15 @@ class Display extends React.Component {
     render = () => {
         return (
             <div className='mainDisplays'>
-                <DisplayController onMaxValueChange={this.props.onMaxValueChange}
+                <DisplayController 
+                setNumber={this.props.setNumber}
+                onMaxValueChange={this.props.onMaxValueChange}
                 onStartValueChange={this.props.onStartValueChange}
                 state={this.props.state} />
-               <DisplayIncremental state={this.props.state}/>
+               <DisplayIncremental 
+               resetNumber={this.props.resetNumber}
+                addNumber={this.props.addNumber}
+               state={this.props.state}/>
             </div>
         );
     }

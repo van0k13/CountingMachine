@@ -7,7 +7,7 @@ class DisplayController extends React.Component {
         let onMaxValueChange = this.props.onMaxValueChange
         let onStartValueChange = this.props.onStartValueChange
         let disabled = this.props.state.controllers[2].isDisabled
-        let onClick = this.props.state.controllers[2].buttonFn
+        let onClick = this.props.setNumber
         let name = this.props.state.controllers[2].name
         return (
             <div className='displayController'>

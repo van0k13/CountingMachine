@@ -19,11 +19,11 @@ class DisplayIncremental extends React.Component {
                 <div className='buttonIncReset'>
                     <button
                         disabled={this.props.state.controllers[0].isDisabled}
-                        onClick={this.props.state.controllers[0].buttonFn}
+                        onClick={this.props.addNumber}
                         className='buttonStylization'>{INC}</button>
                     <button
                         disabled={this.props.state.controllers[1].isDisabled}
-                        onClick={this.props.state.controllers[1].buttonFn}
+                        onClick={this.props.resetNumber}
                         className='buttonStylization'>{RESET}</button>
                 </div>
             </div>

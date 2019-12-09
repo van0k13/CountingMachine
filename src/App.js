@@ -4,11 +4,16 @@ import Display from './Dispaly';
 
 
 class App extends React.Component {
-    constructor(props) {
-        super(props);
-    }
+   
     componentDidMount() {
         this.restoreState();
+    }
+
+    componentDidUpdate(props, state) {
+        if(state !== this.state) {
+           this.saveState()
+           console.warn(state)
+        }
     }
 
     addNumber = () => {
@@ -34,13 +39,13 @@ class App extends React.Component {
                         }), displayingNumberMax: true
                     })
                 }
-            }, () => { this.saveState(); })
+            })
         }
     }
     resetNumber = () => {
         this.setState({
-            displayingNumber: 0
-        }, () => { this.saveState(); })
+            displayingNumber: this.state.startValue
+        })
 
         this.setState({
             controllers: this.state.controllers.map(c => {
@@ -60,7 +65,7 @@ class App extends React.Component {
                 }),
                 displayingNumber: this.state.startValue,
                 displayingNumberMax: false
-            }, () => { this.saveState(); })
+            })
         }
     }
 
@@ -68,7 +73,7 @@ class App extends React.Component {
         if (e.currentTarget.value > 0 && e.currentTarget.value >= this.state.startValue) {
             return this.setState({
                 maxValue: +e.currentTarget.value
-            }, () => { this.saveState(); })
+            })
 
         }
     }
@@ -83,7 +88,7 @@ class App extends React.Component {
                         return { ...c, isDisabled: false };
                     } else return c
                 })
-            }, () => { this.saveState(); })
+            })
         } else {
             return this.setState(
                 {
@@ -94,23 +99,23 @@ class App extends React.Component {
                             return { ...c, isDisabled: true };
                         } else return c
                     })
-                }, () => { this.saveState(); })
+                })
         }
 
     }
 
 
     state = {
-        displayingNumber: 0,
+        displayingNumber: Number(0),
         displayingNumberMax: false,
-        startValue: 0,
+        startValue: Number(0),
         maxValue: Number(5),
         wrongValue: false,
 
         controllers: [
-            { name: 'INC', buttonFn: this.addNumber, isDisabled: true },
-            { name: 'RESET', buttonFn: this.resetNumber, isDisabled: true },
-            { name: 'SET', buttonFn: this.setNumber, isDisabled: false }
+            { name: 'INC', isDisabled: true },
+            { name: 'RESET', isDisabled: true },
+            { name: 'SET', isDisabled: false }
         ],
     };
 
@@ -121,15 +126,15 @@ class App extends React.Component {
 
     restoreState = () => {
         let state = {
-            displayingNumber: 0,
+            displayingNumber: Number(0),
             displayingNumberMax: false,
-            startValue: 0,
+            startValue: Number(0),
             maxValue: Number(5),
             wrongValue: false,
             controllers: [
-                { name: 'INC', buttonFn: this.addNumber, isDisabled: true },
-                { name: 'RESET', buttonFn: this.resetNumber, isDisabled: true },
-                { name: 'SET', buttonFn: this.setNumber, isDisabled: false }
+                { name: 'INC', isDisabled: true },
+                { name: 'RESET', isDisabled: true },
+                { name: 'SET', isDisabled: false }
             ]
         };
         let stateAsString = localStorage.getItem('my-state');
@@ -144,7 +149,11 @@ class App extends React.Component {
         return (
             <div className='mainBody'>
                 <div>
-                    <Display onMaxValueChange={this.onMaxValueChange}
+                    <Display 
+                    setNumber={this.setNumber}
+                    resetNumber={this.resetNumber}
+                    addNumber={this.addNumber}
+                    onMaxValueChange={this.onMaxValueChange}
                         onStartValueChange={this.onStartValueChange}
                         state={this.state} />
                 </div>
