@@ -5,26 +5,31 @@ import './App.css';
 class DisplayIncremental extends React.Component {
 
     render = () => {
-        let INC = this.props.state.controllers[0].name;
-        let RESET = this.props.state.controllers[1].name
+       let INC = this.props.controllers.find(c => {
+            if(c.name === 'INC') return c
+            })
+        
+        let RESET = this.props.controllers.find(c => {
+            if (c.name === 'RESET')  return c
+        })
         return (
             <div className='displayIncremental'>
-                {!this.props.state.wrongValue && !this.props.state.displayingNumberMax &&
-                    <div className='incNumber'>{this.props.state.displayingNumber}</div>}
-                {this.props.state.wrongValue &&
+                {!this.props.wrongValue && !this.props.displayingNumberMax &&
+                    <div className='incNumber'>{this.props.displayingNumber}</div>}
+                {this.props.wrongValue &&
                     <div className='incNumberWrong'>Wrong value! Please set another start
                      value that is more then a zero and less then a Max Value</div>}
-                {this.props.state.displayingNumberMax &&
-                    <div className='incNumberMax'>Max Value!<br/>{this.props.state.displayingNumber}</div>}
+                {this.props.displayingNumberMax &&
+                    <div className='incNumberMax'>Max Value!<br />{this.props.displayingNumber}</div>}
                 <div className='buttonIncReset'>
                     <button
-                        disabled={this.props.state.controllers[0].isDisabled}
+                        disabled={INC.isDisabled}
                         onClick={this.props.addNumber}
-                        className='buttonStylization'>{INC}</button>
+                className='buttonStylization'>{INC.name}</button>
                     <button
-                        disabled={this.props.state.controllers[1].isDisabled}
+                        disabled={RESET.isDisabled}
                         onClick={this.props.resetNumber}
-                        className='buttonStylization'>{RESET}</button>
+                className='buttonStylization'>{RESET.name}</button>
                 </div>
             </div>
         );
