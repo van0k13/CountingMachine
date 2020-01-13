@@ -8,8 +8,7 @@ import { addNumber, resetNumber, maxValueChange, startValueChange, setValue } fr
 class App extends React.Component {
 
     addNumber = () => {
-        let value = this.props.maxValue
-        this.props.addNumber(value)
+        this.props.addNumber(Number(this.props.maxValue))
     }
 
 
@@ -23,11 +22,11 @@ class App extends React.Component {
 
 
     onMaxValueChange = (e) => {
-        this.props.maxValueChange(e.currentTarget.value)
+        this.props.maxValueChange(Number(e.currentTarget.value))
     }
 
     onStartValueChange = (e) => {
-        this.props.startValueChange(e.currentTarget.value)
+        this.props.startValueChange(Number(e.currentTarget.value))
     }
 
     render = () => {

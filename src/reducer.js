@@ -27,10 +27,10 @@ const reducer = (state = initialState, action) => {
         case ADD_NUMBER:
             return {
                 ...state,
-                displayingNumberMax: state.displayingNumber === action.value,
+                displayingNumberMax: state.displayingNumber + 1 === state.maxValue,
                 displayingNumber: Number(state.displayingNumber < state.maxValue)
-                    ? state.displayingNumber + 1 : state.displayingNumber
-                
+                    ? state.displayingNumber + 1
+                    :state.displayingNumber
             };
         case RESET_NUMBER:
             return {
@@ -39,7 +39,7 @@ const reducer = (state = initialState, action) => {
         case MAX_VALUE_CHANGE:
             return {
                 ...state, maxValue: action.value,
-                wrongValue: state.maxValue <= state.startValue,
+                wrongValue: action.value <= state.startValue,
                 controllers: [...state.controllers.map( c => {
                     switch (c.name) {
                         case "INC":
@@ -57,7 +57,7 @@ const reducer = (state = initialState, action) => {
         case START_VALUE_CHANGE:
             return {
                 ...state, startValue: action.value,
-                wrongValue: state.startValue >= state.maxValue,
+                wrongValue: action.value >= state.maxValue,
                 controllers: [...state.controllers.map( c => {
                     switch (c.name) {
                         case "INC":
