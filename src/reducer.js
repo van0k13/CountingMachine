@@ -28,13 +28,23 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 displayingNumberMax: state.displayingNumber + 1 === state.maxValue,
+                controllers: [...state.controllers.map(c=> {
+                    if(c.name === 'INC' && state.maxValue -1 === state.displayingNumber) {
+                        return {...c, isDisabled:true}
+                    }else { return c}
+                })],
                 displayingNumber: Number(state.displayingNumber < state.maxValue)
                     ? state.displayingNumber + 1
                     :state.displayingNumber
             };
         case RESET_NUMBER:
             return {
-                ...state, displayingNumber: 0, displayingNumberMax: false
+                ...state, displayingNumber: 0, displayingNumberMax: false,
+                controllers: [...state.controllers.map(c=> {
+                    if(c.name === 'INC') {
+                        return {...c, isDisabled: false}
+                    }else { return c}
+                })]
             };
         case MAX_VALUE_CHANGE:
             return {
@@ -85,7 +95,8 @@ const reducer = (state = initialState, action) => {
                         default:
                             return c;
                     }
-                })], displayingNumber: Number(state.startValue)
+                })], displayingNumber: Number(state.startValue),
+                displayingNumberMax: false
             }
         default:
             return state;
