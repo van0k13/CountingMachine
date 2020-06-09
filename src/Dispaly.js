@@ -1,32 +1,35 @@
 import React from 'react';
-import './App.css';
+import s from './App.module.css';
 import DisplayController from './DispalyController';
 import DisplayIncremental from './DispalyIncremental';
 
 
-class Display extends React.Component {
+const Display = ({
+                     controllers, wrongValue, setNumber, maxValue, onMaxValueChange, onStartValueChange,
+                     startValue, displayingNumber, displayingNumberMax, resetNumber, addNumber
+                 }) => {
 
-    render = () => {
-        return (
-            <div className='mainDisplays'>
-                <DisplayController
-                    controllers={this.props.controllers}
-                    wrongValue={this.props.wrongValue}
-                    setNumber={this.props.setNumber}
-                    maxValue={this.props.maxValue}
-                    onMaxValueChange={this.props.onMaxValueChange}
-                    onStartValueChange={this.props.onStartValueChange}
-                    startValue={this.props.startValue} />
-                <DisplayIncremental
-                    wrongValue={this.props.wrongValue}
-                    resetNumber={this.props.resetNumber}
-                    addNumber={this.props.addNumber}
-                    displayingNumber={this.props.displayingNumber}
-                    displayingNumberMax={this.props.displayingNumberMax}
-                    controllers={this.props.controllers} />
-            </div>
-        );
-    }
+    return (
+        <div className={s.mainDisplays}>
+
+            <DisplayController
+                controllers={controllers}
+                wrongValue={wrongValue}
+                setNumber={setNumber}
+                maxValue={maxValue}
+                onMaxValueChange={onMaxValueChange}
+                onStartValueChange={onStartValueChange}
+                startValue={startValue}/>
+
+            <DisplayIncremental
+                wrongValue={wrongValue}
+                resetNumber={resetNumber}
+                addNumber={addNumber}
+                displayingNumber={displayingNumber}
+                displayingNumberMax={displayingNumberMax}
+                controllers={controllers}/>
+        </div>
+    );
 }
 
 export default Display;

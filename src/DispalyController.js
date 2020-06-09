@@ -1,54 +1,46 @@
 import React from 'react';
-import './App.css';
+import s from './App.module.css';
 
 
-class DisplayController extends React.Component {
-    render = () => {
-        let SET = this.props.controllers.find(c => {
-            if (c.name === 'SET') return c
-        })
-        let onMaxValueChange = this.props.onMaxValueChange
-        let onStartValueChange = this.props.onStartValueChange
-        let setThatShit = this.props.setNumber
-        return (
-            <div className='displayController'>
-                {!this.props.wrongValue && <div className='controlPanel'>
-                    <div className='textStyle'>Max Value:
-                            <input className='inputStyle'
-                            value={this.props.maxValue}
-                            onChange={onMaxValueChange}
-                            type='number'></input>
+const DisplayController = ({
+                               controllers, wrongValue, setNumber, maxValue, onMaxValueChange, onStartValueChange,
+                               startValue
+                           }) => {
+    let SET = controllers.find(c => c.name === 'SET')
+    return (
+        <div className={s.displayController}>
+            {!wrongValue
+                ? <div className={s.controlPanel}>
+                    <div className={s.textStyle}>
+                        <span>Max Value:</span>
+                        <input className={s.inputStyle} value={maxValue} onChange={onMaxValueChange} type='number'/>
                     </div>
-                    <div className='textStyle'>Start Value:
-                            <input className='inputStyle'
-                            value={this.props.startValue}
-                            onChange={onStartValueChange}
-                            type='number'></input>
+                    <div className={s.textStyle}>
+                        <span>Start Value:</span>
+                        <input className={s.inputStyle} value={startValue} onChange={onStartValueChange} type='number'/>
                     </div>
-                </div>}
-                {this.props.wrongValue && <div className='controlPanel'>
-                    <div className='textStyle'>Max Value:
-                            <input className='inputStyleWrong'
-                            value={this.props.maxValue}
-                            onChange={onMaxValueChange}
-                            type='number'></input>
-                    </div>
-                    <div className='textStyle'>Start Value:
-                            <input className='inputStyleWrong'
-                            value={this.props.startValue}
-                            onChange={onStartValueChange}
-                            type='number'></input>
-                    </div>
-                </div>}
-                <div className='setButton'>
-                    <button className='buttonStylization'
-                    disabled={SET.isDisabled}
-                        onClick={setThatShit}>{SET.name}</button>
                 </div>
+                : <div className={s.controlPanel}>
+                    <div className={s.textStyle}>
+                        <span>Max Value:</span>
+                        <input className={s.inputStyleWrong} value={maxValue} onChange={onMaxValueChange}
+                               type='number'/>
+                    </div>
+                    <div className={s.textStyle}>
+                        <span>Start Value:</span>
+                        <input className={s.inputStyleWrong} value={startValue} onChange={onStartValueChange}
+                               type='number'/>
+                    </div>
+                </div>
+            }
+            <div className={s.setButton}>
+                <button className={s.buttonStylization}
+                        disabled={SET.isDisabled}
+                        onClick={setNumber}>{SET.name}</button>
             </div>
+        </div>
 
-        );
-    }
+    );
 }
 
 export default DisplayController;

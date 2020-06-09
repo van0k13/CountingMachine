@@ -1,40 +1,38 @@
 import React from 'react';
-import './App.css';
+import s from './App.module.css';
 
 
-class DisplayIncremental extends React.Component {
+const DisplayIncremental = ({
+                                controllers, wrongValue, displayingNumberMax, displayingNumber,
+                                addNumber, resetNumber
+                            }) => {
 
-    render = () => {
-       let INC = this.props.controllers.find(c => {
-            if(c.name === 'INC') return c
-            })
-        
-        let RESET = this.props.controllers.find(c => {
-            if (c.name === 'RESET')  return c
-        })
-        return (
-            <div className='displayIncremental'>
-                {!this.props.wrongValue && !this.props.displayingNumberMax &&
-                    <div className='incNumber'>{this.props.displayingNumber}</div>}
-                {this.props.wrongValue &&
-                    <div className='incNumberWrong'>Wrong value! Please set another start
-                     value that is more then a zero and less then a Max Value</div>}
-                {this.props.displayingNumberMax &&
-                    <div className='incNumberMax'>Max Value!<br />{this.props.displayingNumber}</div>}
-                <div className='buttonIncReset'>
-                    <button
-                        disabled={INC.isDisabled}
-                        onClick={this.props.addNumber}
-                className='buttonStylization'>{INC.name}</button>
-                    <button
-                        disabled={RESET.isDisabled}
-                        onClick={this.props.resetNumber}
-                className='buttonStylization'>{RESET.name}</button>
-                </div>
+    const INC = controllers.find(c => c.name === 'INC')
+
+    const RESET = controllers.find(c => c.name === 'RESET')
+    return (
+        <div className={s.displayIncremental}>
+            {!wrongValue && !displayingNumberMax &&
+            <div className={s.incNumber}>{displayingNumber}</div>}
+            {wrongValue &&
+            <div className={s.incNumberWrong}>Wrong value! Please set another start
+                value that is more then a zero and less then a Max Value</div>}
+            {displayingNumberMax &&
+            <div className={s.incNumberMax}>Max Value!<br/>{displayingNumber}</div>}
+            <div className={s.buttonIncReset}>
+                <button
+                    disabled={INC.isDisabled}
+                    onClick={addNumber}
+                    className={s.buttonStylization}>{INC.name}</button>
+                <button
+                    disabled={RESET.isDisabled}
+                    onClick={resetNumber}
+                    className={s.buttonStylization}>{RESET.name}</button>
             </div>
-        );
-    }
+        </div>
+    );
 }
+
 
 export default DisplayIncremental;
 

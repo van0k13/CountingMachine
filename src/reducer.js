@@ -22,7 +22,6 @@ const initialState = {
 
 
 const reducer = (state = initialState, action) => {
-    console.log(state.displayingNumber)
     switch (action.type) {
         case ADD_NUMBER:
             return {

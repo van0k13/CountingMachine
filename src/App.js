@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import s from './App.module.css';
 import Display from './Dispaly';
 import { connect } from 'react-redux';
 import { addNumber, resetNumber, maxValueChange, startValueChange, setValue } from './reducer'
@@ -10,8 +10,6 @@ class App extends React.Component {
     addNumber = () => {
         this.props.addNumber(Number(this.props.maxValue))
     }
-
-
     resetNumber = () => {
         this.props.resetNumber()
     }
@@ -19,8 +17,6 @@ class App extends React.Component {
         
         this.props.setValue()
     }
-
-
     onMaxValueChange = (e) => {
         this.props.maxValueChange(Number(e.currentTarget.value))
     }
@@ -31,7 +27,7 @@ class App extends React.Component {
 
     render = () => {
         return (
-            <div className='mainBody'>
+            <div className={s.mainBody}>
                 <div>
                     <Display
                         wrongValue={this.props.wrongValue}
